@@ -12,14 +12,17 @@
       <router-view></router-view>
     </div>
     <!-- Bottom Navigation -->
+    <bottom-nav />
   </div>
 </template>
 
 <script>
 import TopNavbar from '../components/TopNav.vue'
+import BottomNav from '../components/BottomNav/BottomNav.vue'
 export default {
   components: {
-    TopNavbar
+    TopNavbar,
+    BottomNav
   }
 }
 </script>
