@@ -1,0 +1,9 @@
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
