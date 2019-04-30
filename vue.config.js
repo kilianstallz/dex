@@ -1,6 +1,6 @@
 module.exports = {
   pwa: {
-    workboxPluginMode: 'InjectManifest',
+    workboxPluginMode: 'GenerateManifest',
     workboxOptions: {
       swSrc: 'src/service-worker.js'
     }

@@ -20,6 +20,33 @@
 import TopNavbar from '../components/TopNav.vue'
 import BottomNav from '../components/BottomNav/BottomNav.vue'
 export default {
+  name: 'MainLayout',
+  data () {
+    return {
+      window: {
+        width: 0
+      }
+    }
+  },
+  methods: {
+    getWindowWidth (e) {
+      this.window.width = window.innerWidth
+      if (this.window.width < 768) {
+        // Toggle Sidebar
+      } else {
+        // Toggle Sidebar
+      }
+    }
+  },
+  created () {
+    this.$nextTick(function () {
+      window.addEventListener('resize', this.getWindowWidth)
+      this.getWindowWidth()
+    })
+  },
+  destroyed () {
+    window.removeEventListener('resize', this.getWindowWidth)
+  },
   components: {
     TopNavbar,
     BottomNav

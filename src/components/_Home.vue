@@ -4,7 +4,7 @@
       class="favs"
       v-if="favs"
     >
-      <dLabel>FAVOURITE</dLabel>
+      <dLabel>FAVOURITES</dLabel>
       <card
         v-for="(fav, i) in favs"
         :key="i"
@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import labelList from '../labelList.vue'
-import card from '../card.vue'
+import labelList from './labelList.vue'
+import card from './card.vue'
 export default {
   name: 'MySpace',
   data () {

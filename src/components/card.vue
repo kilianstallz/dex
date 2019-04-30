@@ -1,7 +1,7 @@
 <template>
   <article
     v-if="this.data"
-    class="bg-gray-100 w-full rounded flex flex-row"
+    class="bg-gray-100 w-full shadow-sm rounded flex flex-row"
   >
     <i class="text-2xl my-auto">{{card.icon}}</i>
     <div class="mt-5 text flex flex-col flex-1">
@@ -32,9 +32,13 @@ export default {
 <style lang="scss" scoped>
 article {
   height: 84px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 12px;
   margin-bottom: 12px;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
 
   i {
     margin-left: 15px;
