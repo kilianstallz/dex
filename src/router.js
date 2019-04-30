@@ -12,6 +12,10 @@ export default new Router({
       redirect: '/'
     },
     {
+      path: '/auth',
+      component: () => import('./views/Authentication.vue')
+    },
+    {
       path: '/',
       component: () => import('./views/Main.vue'),
       children: [

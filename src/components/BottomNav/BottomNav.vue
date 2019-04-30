@@ -7,7 +7,7 @@
         class="bg-blue-400 rounded my-4"
         style="width: 45px; height: 30px;"
       >
-        <div class=" plus mx-auto z-50 text-2xl text-white">+</div>
+        <div class=" plus mx-auto leading-tight z-50 text-2xl text-white">+</div>
       </div>
       <div>N</div>
       <div>P</div>

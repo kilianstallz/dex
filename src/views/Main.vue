@@ -9,7 +9,13 @@
       class="bg-gray-200"
       style="margin: 0 5px 0 5px;"
     >
-      <router-view></router-view>
+      <router-view v-if="!isLoading"></router-view>
+      <div
+        class="w-full flex flex-row mt-64"
+        v-else
+      >
+        <loader class="mx-auto" />
+      </div>
     </div>
     <!-- Bottom Navigation -->
     <bottom-nav />
@@ -17,6 +23,7 @@
 </template>
 
 <script>
+import Loader from '../components/Loader.vue'
 import TopNavbar from '../components/TopNav.vue'
 import BottomNav from '../components/BottomNav/BottomNav.vue'
 export default {
@@ -38,6 +45,11 @@ export default {
       }
     }
   },
+  computed: {
+    isLoading () {
+      return true
+    }
+  },
   created () {
     this.$nextTick(function () {
       window.addEventListener('resize', this.getWindowWidth)
@@ -49,7 +61,8 @@ export default {
   },
   components: {
     TopNavbar,
-    BottomNav
+    BottomNav,
+    Loader
   }
 }
 </script>
