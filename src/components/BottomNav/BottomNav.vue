@@ -15,7 +15,7 @@
         <div
           v-show="showCreate"
           class="plus mx-auto leading-tight z-50 text-2xl text-white"
-        >⬇</div>
+        >-</div>
       </div>
       <div>N</div>
       <div>P</div>

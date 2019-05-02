@@ -27,6 +27,8 @@ firebase.firestore().enablePersistence()
 const auth = firebase.auth()
 const db = firebase.firestore()
 const currentUser = auth.currentUser
+// eslint-disable-next-line
+const timestamp = (date = Date.now()) => new firebase.firestore.Timestamp.now()
 
 const usersCollection = db.collection('users')
 const stacksCollection = db.collection('stacks')
@@ -34,6 +36,7 @@ const stacksCollection = db.collection('stacks')
 export {
   db,
   auth,
+  timestamp,
   currentUser,
   usersCollection,
   stacksCollection

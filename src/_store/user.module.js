@@ -1,4 +1,4 @@
-import { auth, usersCollection } from '../firebaseConfig'
+import { auth, usersCollection, timestamp } from '../firebaseConfig'
 
 const state = {
   user: null
@@ -43,6 +43,10 @@ const actions = {
         commit('updateUser', { user: { ...firebaseUser, ...user.data() } })
       }
     })
+      .catch(e => {
+        console.log(e)
+        auth.signOut()
+      })
   },
 
   signUp ({ commit }, input) {
@@ -53,7 +57,7 @@ const actions = {
       auth.createUserWithEmailAndPassword(email, password).then(async firebaseUser => {
         await firebaseUser.user.updateProfile({ displayName: `${firstName} ${lastName}` })
         const userDoc = await usersCollection.doc(firebaseUser.user.uid).set({
-          createdAt: Date.now()
+          created: timestamp()
         })
         const finalUser = { ...user, ...userDoc }
         commit('updateUser', finalUser)
