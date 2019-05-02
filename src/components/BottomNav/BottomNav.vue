@@ -26,7 +26,7 @@
     >
       <div
         style="height: 40px; width: 160px"
-        class="bg-gray-900 text-white mx-auto py-2 px-4 my-6 text-center rounded"
+        class="bg-gray-900 text-white mx-auto py-2 px-4 my-6 text-center rounded-lg"
         @click="$router.push('/create/stack')"
       >CREATE STACK</div>
       <!-- <div

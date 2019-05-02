@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import './assets/css/main.css'
+// Custom directives
+// import './plugins/click-outside'
 const fb = require('./firebaseConfig')
 
 Vue.config.productionTip = false
@@ -15,9 +17,7 @@ new Vue({
 }).$mount('#app')
 
 fb.auth.onAuthStateChanged(user => {
-  console.log('main', user)
   if (user) {
-    console.log('dispatchUserUpdate')
     store.dispatch('user/updateUser', user)
   }
   if (!user) router.push('/auth')

@@ -31,7 +31,7 @@
 
 <script>
 import { SlideXLeftTransition, SlideYDownTransition } from 'vue2-transitions'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import TopNavbar from '../components/TopNav.vue'
 import Loader from '../components/Loader.vue'
 import BottomNav from '../components/BottomNav/BottomNav.vue'
@@ -53,7 +53,8 @@ export default {
       } else {
         // Eventually Toggle Sidebar
       }
-    }
+    },
+    ...mapActions(['toggleSidebar'])
   },
   computed: {
     isLoading () {
