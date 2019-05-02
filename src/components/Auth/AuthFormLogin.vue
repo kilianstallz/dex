@@ -64,8 +64,20 @@ export default {
     }
   },
   methods: {
-    checkForm () { },
+    checkForm () {
+      if (this.email && this.password) {
+        return true
+      } else return false
+    },
     async login () {
+      this.$store.state.isLoading = true
+      if (await this.checkForm()) {
+        await this.$store.dispatch('user/login', { email: this.email, password: this.password })
+        this.$router.push('/')
+      } else {
+        // TASK: Implement Notifications
+      }
+      this.$store.state.isLoading = false
     },
     async loginGoogle () {
     },

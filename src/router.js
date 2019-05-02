@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -18,9 +18,10 @@ export default new Router({
     {
       path: '/',
       component: () => import('./views/Main.vue'),
+      redirect: '/space',
       children: [
         {
-          path: '/',
+          path: '/space',
           component: () => import('./components/_Home.vue')
         }
       ]
@@ -35,3 +36,9 @@ export default new Router({
     }
   ]
 })
+
+// router.beforeEach((to, from, next) => {
+
+// })
+
+export default router

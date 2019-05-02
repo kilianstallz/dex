@@ -1,46 +1,32 @@
 <template>
-  <div
-    v-if="isMobile"
-    class="p-0 m-0 w-screen h-screen"
-  >
-    <mobileLogin
-      v-if="!signUp"
-      @switch="signUp = !signUp"
-    />
-    <sign-up
-      v-else
-      @switch="signUp = !signUp"
-    />
-  </div>
-  <!-- Desktop Auth -->
-  <!-- <div
-    v-else-if="
-      false"
-      class="flex flex-row p-0 m-0"
-      style="height: 100%; width: 100%"
+  <div class="p-0 m-0 w-screen h-screen">
+    <div
+      v-if="!isLoading"
+      class="p-0 m-0 w-screen h-screen"
     >
-      <div
-        class="flex flex-col justify-center align-middle text-center bg-blue-400 hidden md:flex"
-        style="width: 50vw;"
-      >
-        <p class="text-2xl text-white">Welcome!</p>
-      </div>
-      <div class="flex flex-col justify-between flex-grow">
-        <mobile-login
-          v-if="!signUp"
-          @switch="signUp = !signUp"
-        />
-        <sign-up
-          v-if="signUp"
-          @switch="signUp = !signUp"
-        />
-      </div>
-  </div> -->
+      <auth-form-login
+        v-if="!signUp"
+        @switch="signUp = !signUp"
+      />
+      <auth-form-sign-up
+        v-else
+        @switch="signUp = !signUp"
+      />
+    </div>
+    <div
+      v-else
+      class="w-full h-full flex mx-auto justify-center"
+    >
+      <loader />
+    </div>
+  </div>
 </template>
 
 <script>
-import mobileLogin from '../components/Auth/mobileLogin.vue'
-import signUp from '../components/Auth/signUp.vue'
+import AuthFormLogin from '../components/Auth/AuthFormLogin.vue'
+import AuthFormSignUp from '../components/Auth/AuthFormSignUp.vue'
+import Loader from '../components/Loader.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Authentication',
   data () {
@@ -51,11 +37,19 @@ export default {
   computed: {
     isMobile () {
       return window.innerWidth < 850
+    },
+    ...mapGetters(['isLoading']),
+    ...mapGetters('user', ['user'])
+  },
+  watch: {
+    user (auth) {
+      if (auth) this.$router.push('/')
     }
   },
   components: {
-    mobileLogin,
-    signUp
+    AuthFormLogin,
+    AuthFormSignUp,
+    Loader
   }
 }
 </script>

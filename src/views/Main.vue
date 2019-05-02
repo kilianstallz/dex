@@ -2,6 +2,9 @@
   <div class="bg-gray-200 m-0 p-0 h-screen w-screen">
     <!-- notifications -->
     <!-- Sidebar Drawer -->
+    <slide-left>
+      <the-side-bar v-show="showSidebar" />
+    </slide-Left>
     <!-- Top Navigation -->
     <top-navbar />
     <!-- Content -->
@@ -9,23 +12,30 @@
       class="bg-gray-200"
       style="margin: 0 5px 0 5px;"
     >
-      <router-view v-if="!isLoading"></router-view>
+      <slide-down>
+        <router-view v-if="!isLoading"></router-view>
+      </slide-down>
       <div
         class="w-full flex flex-row mt-64"
-        v-else
+        v-if="isLoading"
       >
         <loader class="mx-auto" />
       </div>
     </div>
     <!-- Bottom Navigation -->
-    <bottom-nav />
+    <slide-down>
+      <bottom-nav v-show="!showSidebar" />
+    </slide-down>
   </div>
 </template>
 
 <script>
-import Loader from '../components/Loader.vue'
+import { SlideXLeftTransition, SlideYDownTransition } from 'vue2-transitions'
+import { mapGetters } from 'vuex'
 import TopNavbar from '../components/TopNav.vue'
+import Loader from '../components/Loader.vue'
 import BottomNav from '../components/BottomNav/BottomNav.vue'
+import TheSideBar from '../components/TheSideBar.vue'
 export default {
   name: 'MainLayout',
   data () {
@@ -39,16 +49,19 @@ export default {
     getWindowWidth (e) {
       this.window.width = window.innerWidth
       if (this.window.width < 768) {
-        // Toggle Sidebar
+        // Eventually Toggle Sidebar
       } else {
-        // Toggle Sidebar
+        // Eventually Toggle Sidebar
       }
     }
   },
   computed: {
     isLoading () {
-      return true
-    }
+      if (this.user) return false
+      else return true
+    },
+    ...mapGetters('user', ['user']),
+    ...mapGetters(['showSidebar'])
   },
   created () {
     this.$nextTick(function () {
@@ -56,12 +69,24 @@ export default {
       this.getWindowWidth()
     })
   },
+  watch: {
+    /**
+     * @method user
+     * @description watch the user getter from store, and if there is no user push to the login page
+     */
+    user (auth) {
+      if (!auth) this.$router.push('/auth')
+    }
+  },
   destroyed () {
     window.removeEventListener('resize', this.getWindowWidth)
   },
   components: {
     TopNavbar,
     BottomNav,
+    TheSideBar,
+    slideLeft: SlideXLeftTransition,
+    slideDown: SlideYDownTransition,
     Loader
   }
 }

@@ -9,12 +9,26 @@ export default new Vuex.Store({
     user
   },
   state: {
-
+    isLoading: false,
+    showSidebar: false
+  },
+  getters: {
+    isLoading: state => state.isLoading,
+    showSidebar: state => state.showSidebar
   },
   mutations: {
-
+    toggleSidebar (state, bool) {
+      state.showSidebar = bool
+    }
   },
   actions: {
-
+    /**
+     * @method toggleSidebar
+     * @param {bool} bool - Sidebar Toggle State
+     * @default false
+     */
+    toggleSidebar ({ commit }, bool = false) {
+      commit('toggleSidebar', bool)
+    }
   }
 })

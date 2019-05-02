@@ -16,7 +16,7 @@ export default {
   methods: {
     toggleSidebar () {
       // TASK: Sidebar Store
-      this.$emit('sidebar')
+      this.$store.dispatch('toggleSidebar', true)
     }
   }
 }

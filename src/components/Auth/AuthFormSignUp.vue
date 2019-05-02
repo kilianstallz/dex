@@ -97,12 +97,16 @@ export default {
     },
     async signUp () {
       if (this.checkForm()) {
+        this.$store.dispatch('user/signUp', { firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
       }
     },
     async loginGoogle () {
     },
     switchForm () {
       this.$emit('switch')
+    },
+    nextRoute () {
+      return this.$route.query.redirect || '/app'
     }
   },
   computed: {
