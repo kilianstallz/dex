@@ -65,6 +65,7 @@
         ><span
           class="my-auto font-medium"
           style="margin-left: 24px; font-size: 14px;"
+          @click="$store.dispatch('user/signInWithGoogle')"
         >Sign in with Google</span></button>
 
       <p

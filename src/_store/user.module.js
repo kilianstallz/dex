@@ -1,4 +1,4 @@
-import { auth, usersCollection, timestamp } from '../firebaseConfig'
+import { auth, usersCollection, timestamp, googleAuthProvider } from '../firebaseConfig'
 
 const state = {
   user: null
@@ -8,11 +8,11 @@ const getters = {
 }
 const mutations = {
   /**
-   * @method updateUser
+   * @method UPDATE_USER
    * @description Sets the user state from the user object contained in the payload.
    * @param {Object} payload - Firebase User wrapped in user object.
    */
-  updateUser (state, payload) {
+  'UPDATE_USER' (state, payload) {
     const { user } = payload
     state.user = user
     console.log('User updated')
@@ -39,13 +39,12 @@ const actions = {
 
   updateUser ({ commit }, firebaseUser) {
     usersCollection.doc(firebaseUser.uid).get().then(user => {
-      if (user.exists) {
-        commit('updateUser', { user: { ...firebaseUser, ...user.data() } })
+      if (user) {
+        commit('UPDATE_USER', { user: { ...firebaseUser, ...user.data() } })
       }
     })
       .catch(e => {
         console.log(e)
-        auth.signOut()
       })
   },
 
@@ -57,13 +56,31 @@ const actions = {
       auth.createUserWithEmailAndPassword(email, password).then(async firebaseUser => {
         await firebaseUser.user.updateProfile({ displayName: `${firstName} ${lastName}` })
         const userDoc = await usersCollection.doc(firebaseUser.user.uid).set({
+          firestoreDoc: 'created',
           created: timestamp()
         })
+        console.log(userDoc)
         const finalUser = { ...user, ...userDoc }
         commit('updateUser', finalUser)
       })
     } catch (e) {
       console.error(e)
+    }
+  },
+
+  async signInWithGoogle ({ commit }) {
+    try {
+      // TASK: ADD firebase function to create userDoc when new user signs up.
+      const user = await auth.signInWithPopup(googleAuthProvider)
+      const userDoc = await usersCollection.doc(user.user.uid).get()
+      if (!userDoc.exists) {
+        usersCollection.doc(user.user.uid).set({
+          firestoreDoc: 'created',
+          created: timestamp()
+        })
+      }
+    } catch (e) {
+      console.log(e)
     }
   },
 

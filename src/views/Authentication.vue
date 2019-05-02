@@ -43,6 +43,7 @@ export default {
   },
   watch: {
     user (auth) {
+      console.log('authpagewatcher', auth)
       if (auth) this.$router.push('/')
     }
   },

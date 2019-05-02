@@ -29,6 +29,7 @@ const db = firebase.firestore()
 const currentUser = auth.currentUser
 // eslint-disable-next-line
 const timestamp = (date = Date.now()) => new firebase.firestore.Timestamp.now()
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 
 const usersCollection = db.collection('users')
 const stacksCollection = db.collection('stacks')
@@ -37,6 +38,7 @@ export {
   db,
   auth,
   timestamp,
+  googleAuthProvider,
   currentUser,
   usersCollection,
   stacksCollection
