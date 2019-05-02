@@ -27,6 +27,16 @@ const router = new Router({
       ]
     },
     {
+      path: '/create',
+      component: () => import('./views/Create.vue'),
+      children: [
+        {
+          path: '/create/stack',
+          component: () => import('./components/CreateStackPage.vue')
+        }
+      ]
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

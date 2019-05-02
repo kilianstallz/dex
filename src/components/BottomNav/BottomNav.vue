@@ -27,15 +27,16 @@
       <div
         style="height: 40px; width: 160px"
         class="bg-gray-900 text-white mx-auto py-2 px-4 my-6 text-center rounded"
+        @click="$router.push('/create/stack')"
       >CREATE STACK</div>
-      <div
+      <!-- <div
         style="height: 40px; width: 160px"
         class="bg-blue-400 text-white mx-auto py-2 px-4 my-6 text-center rounded"
       >CREATE DECK</div>
       <div
         style="height: 40px; width: 160px"
         class="bg-red-500 text-white mx-auto py-2 px-4 my-6 text-center rounded"
-      >CREATE TODO</div>
+      >CREATE TODO</div> -->
     </div>
   </div>
 </template>
