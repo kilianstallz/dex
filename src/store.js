@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { user } from './_store/user.module'
+import { data } from './_store/data.module'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    user
+    user,
+    data
   },
   state: {
     isLoading: false,

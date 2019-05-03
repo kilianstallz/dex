@@ -62,6 +62,7 @@ export default {
       else return true
     },
     ...mapGetters('user', ['user']),
+    ...mapGetters('data', ['allStacks']),
     ...mapGetters(['showSidebar'])
   },
   created () {
@@ -77,6 +78,10 @@ export default {
      */
     user (auth) {
       if (!auth) this.$router.push('/auth')
+    },
+    allStacks (stacks) {
+      console.log('stackswatcher')
+      if (!stacks) this.$store.dispatch('data/getAllStacks')
     }
   },
   destroyed () {

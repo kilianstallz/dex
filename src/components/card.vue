@@ -5,7 +5,7 @@
   >
     <i class="text-2xl my-auto">{{card.icon}}</i>
     <div class="mt-5 text flex flex-col flex-1">
-      <h3 class="text-gray-900">{{card.short}}</h3>
+      <h3 class="text-gray-900 font-bold">{{card.short}}</h3>
       <p class="text-base text-gray-500 mt-1 tracking-normal">{{card.long}}</p>
     </div>
   </article>

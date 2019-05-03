@@ -97,6 +97,17 @@ export default {
       window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/space')
+    },
+    checkForm () {
+      if (this.icon && this.fullName && this.shortHand) return true
+      else return false
+    },
+    async handleSubmit () {
+      if (this.checkForm()) {
+        // Handle Submit in store
+        const stack = { icon: this.icon, shortName: this.shortHand, fullName: this.fullName }
+        this.$store.dispatch('data/createStack', { stack })
+      }
     }
   },
   components: {
