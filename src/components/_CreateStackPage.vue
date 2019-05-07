@@ -15,7 +15,7 @@
       class="form"
     >
       <form
-        @submit.prevent=""
+        @submit.prevent="handleSubmit"
         class="form-inner flex flex-col flex-auto"
       >
         <h1 class="text-3xl font-black text-gray-800 tracking-tight mb-6">Create a new stack</h1>
@@ -60,8 +60,32 @@
           >max. 8 letters</p>
         </div>
 
+        <div class="mb-6">
+          <label
+            class="text-gray-600 tracking-tight mb-2"
+            style="font-size: 0.875rem; font-weight: 700;"
+          >
+            SELECT AN ICON
+          </label>
+          <input
+            v-model="icon"
+            type="text"
+            placeholder="Icon"
+            @click="showPicker = true"
+            class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4"
+          >
+          <picker
+            v-show="showPicker"
+            title="Pick your stack icon..."
+            :style="{ position: 'absolute', bottom: '20px', right: '20px' }"
+            @select="selectEmoji"
+            native
+          />
+        </div>
+
         <div>
           <button
+            :disabled="isLoading"
             type="submit"
             class="rounded-lg text-white bg-blue-400 shadow-sm py-2 px-4 hover:shadow-lg"
           >CREATE STACK</button>
@@ -74,8 +98,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { Picker } from 'emoji-mart-vue'
 import Loader from '../components/Loader.vue'
-// import labelList from '../components/labelList.vue'
 import ButtonClose from '../components/ButtonClose.vue'
 export default {
   name: 'CreateView',
@@ -83,14 +107,13 @@ export default {
     return {
       icon: '',
       fullName: '',
-      shortHand: ''
+      shortHand: '',
+      showPicker: false,
+      isLoading: false
     }
   },
   computed: {
-    ...mapGetters('user', ['user']),
-    isLoading () {
-      return false
-    }
+    ...mapGetters('user', ['user'])
   },
   methods: {
     goBack () {
@@ -98,22 +121,30 @@ export default {
         ? this.$router.go(-1)
         : this.$router.push('/space')
     },
+    selectEmoji (e) {
+      this.icon = e.native
+      this.showPicker = false
+    },
     checkForm () {
-      if (this.icon && this.fullName && this.shortHand) return true
+      if (this.icon && this.fullName && this.shortHand && this.icon) return true
       else return false
     },
     async handleSubmit () {
+      this.isLoading = true
       if (this.checkForm()) {
+        console.log('submit')
         // Handle Submit in store
         const stack = { icon: this.icon, shortName: this.shortHand, fullName: this.fullName }
-        this.$store.dispatch('data/createStack', { stack })
+        await this.$store.dispatch('data/createStack', { stack: stack })
+        await console.log('stack created')
       }
+      this.isLoading = false
     }
   },
   components: {
     Loader,
-    // labelList,
-    ButtonClose
+    ButtonClose,
+    Picker
   }
 }
 </script>

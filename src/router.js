@@ -32,7 +32,7 @@ const router = new Router({
       children: [
         {
           path: '/create/stack',
-          component: () => import('./components/CreateStackPage.vue')
+          component: () => import('./components/_CreateStackPage.vue')
         }
       ]
     },
