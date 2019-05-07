@@ -46,6 +46,7 @@ const actions = {
       const { shortName, fullName, icon } = stack.stack
       console.log(shortName, fullName, icon)
       const uid = auth.currentUser.uid
+
       stacksCollection.add({
         creator: uid,
         shortName: shortName,

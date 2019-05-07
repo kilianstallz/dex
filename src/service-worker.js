@@ -13,7 +13,7 @@ self.addEventListener('message', msg => {
 // precache fonts from google or gstatic
 workbox.routing.registerRoute(
   new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
-  workbox.strategies.cacheFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'google-fonts',
     plugins: [
       new workbox.expiration.Plugin({
@@ -29,7 +29,7 @@ workbox.routing.registerRoute(
 // cache images
 workbox.routing.registerRoute(
   /\.(?:png|gif|jpg|jpeg|webp|svg)$/,
-  new workbox.strategies.cacheFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'images',
     plugins: [
       new workbox.expiration.Plugin({
