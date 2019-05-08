@@ -39,8 +39,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import labelList from './labelList.vue'
-import card from './card.vue'
+import labelList from '../labelList.vue'
+import card from '../card.vue'
 export default {
   name: 'MySpace',
   data () {

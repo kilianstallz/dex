@@ -12,7 +12,8 @@ export default new Vuex.Store({
   },
   state: {
     isLoading: false,
-    showSidebar: false
+    showSidebar: false,
+    navbarTitle: ''
   },
   getters: {
     isLoading: state => state.isLoading,

@@ -8,7 +8,23 @@ const state = {
   _loadingStacks: false
 }
 const getters = {
-  allStacks: state => state.stacks,
+  singleStack: state => {
+    return stackId => {
+      return state.stacks.filter(stack => stack.id === stackId)
+    }
+  },
+  allStacks: state => {
+    let stacks = []
+    if (state.stacks) {
+      for (let stack of state.stacks) {
+        let stackId = stack.id
+        stack = stack.data()
+        stack.id = stackId
+        stacks.push(stack)
+      }
+    }
+    return stacks
+  },
   loadingStacks: state => state._loadingStacks
 }
 const mutations = {
@@ -25,11 +41,11 @@ const actions = {
     let stacks = []
     try {
       commit('_loadingStacks', true)
-      const uid = await auth.currentUser.uid
-      const stacksSnapshot = await stacksCollection.where('creator', '==', uid).orderBy('created', 'desc').get()
-      stacksSnapshot.forEach(stack => {
-        stacks.push(stack.data())
-      })
+      const uid = auth.currentUser.uid
+      const stacksRef = await stacksCollection.where('creator', '==', uid).orderBy('created', 'desc').get()
+      for (let stack of stacksRef.docs) {
+        stacks.push(stack)
+      }
       commit('updateStacks', { stacks })
       commit('_loadingStacks')
     } catch (e) { console.log(e) }
@@ -40,11 +56,10 @@ const actions = {
    * @param {*} dispatch
    * @param {Object} stack - Object containing stack info data - icon, shortName, fullName
    */
-  async createStack ({ dispatch }, stack) {
+  async createStack ({ commit }, stack) {
     const time = firebase.firestore.Timestamp.now()
     try {
       const { shortName, fullName, icon } = stack.stack
-      console.log(shortName, fullName, icon)
       const uid = auth.currentUser.uid
 
       stacksCollection.add({
@@ -55,12 +70,12 @@ const actions = {
         nrOfDecks: 0,
         isFavourite: false,
         created: time
+      }).then(() => {
+        router.push('/space')
       })
-      dispatch('getAllStacks')
       // router.push('/stack/' + stackRef.id)
-      router.push('/space')
     } catch (e) {
-      console.log(e)
+      console.log('An error occured creating the stack.')
     }
   }
 }

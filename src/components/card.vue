@@ -1,6 +1,7 @@
 <template>
   <article
-    v-if="this.data"
+    @click="gotoCard"
+    v-if="data"
     class="bg-gray-100 w-full shadow-sm rounded flex flex-row"
   >
     <i class="text-2xl my-auto">{{card.icon}}</i>
@@ -24,6 +25,11 @@ export default {
       if (this.data) {
         return this.data
       } else return null
+    }
+  },
+  methods: {
+    gotoCard () {
+      this.$router.push('/stack/' + this.card.id)
     }
   }
 }

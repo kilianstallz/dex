@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Main from './views/Main.vue'
+import Home from './components/Main/_Home.vue'
+import Create from './views/Create.vue'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -8,47 +12,45 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '*',
-      redirect: '/'
-    },
-    {
       path: '/auth',
       component: () => import('./views/Authentication.vue')
     },
     {
-      path: '/',
-      component: () => import('./views/Main.vue'),
-      redirect: '/space',
+      path: '/space',
+      component: Main,
       children: [
         {
           path: '/space',
-          component: () => import('./components/_Home.vue')
+          component: Home
         }
       ]
     },
     {
-      path: '/create',
-      component: () => import('./views/Create.vue'),
+      path: '/stack',
+      component: Main,
       children: [
         {
-          path: '/create/stack',
+          path: ':id',
+          component: () => import('./components/Main/_ViewStackPage.vue')
+        }
+      ]
+    },
+    {
+      path: '/create/',
+      redirect: '/create/stack',
+      component: Create,
+      children: [
+        {
+          path: 'stack',
           component: () => import('./components/_CreateStackPage.vue')
         }
       ]
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '*',
+      redirect: '/space'
     }
   ]
 })
-
-// router.beforeEach((to, from, next) => {
-
-// })
 
 export default router

@@ -5,7 +5,7 @@
         @click="toggleSidebar"
         class="ml-7 my-auto hover:text-gray-700"
       >|||</span>
-      <span class="ml-7 my-auto">My Space</span>
+      <span class="ml-7 my-auto">{{pageTitle}}</span>
     </div>
   </div>
 </template>
@@ -13,6 +13,13 @@
 <script>
 export default {
   name: 'TopNavbar',
+  computed: {
+    pageTitle () {
+      if (this.$route.path.startsWith('/stack')) {
+        return 'My Stack'
+      } else return 'My Space'
+    }
+  },
   methods: {
     toggleSidebar () {
       // TASK: Sidebar Store

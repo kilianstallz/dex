@@ -27,7 +27,7 @@
       <div
         style="height: 40px; width: 160px"
         class="bg-gray-900 text-white mx-auto py-2 px-4 my-6 text-center rounded-lg"
-        @click="$router.push('/create/stack')"
+        @click="goToRoute('stack')"
       >CREATE STACK</div>
       <!-- <div
         style="height: 40px; width: 160px"
@@ -52,6 +52,9 @@ export default {
   methods: {
     toggleCreate () {
       this.showCreate = !this.showCreate
+    },
+    goToRoute (path = 'stack') {
+      this.$router.push(`/create/${path}`)
     }
   }
 }

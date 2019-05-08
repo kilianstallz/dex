@@ -60,7 +60,7 @@
           >max. 8 letters</p>
         </div>
 
-        <div class="mb-6">
+        <div class="mb-6 relative">
           <label
             class="text-gray-600 tracking-tight mb-2"
             style="font-size: 0.875rem; font-weight: 700;"
@@ -69,18 +69,16 @@
           </label>
           <input
             v-model="icon"
+            @focus="showPicker = true"
             type="text"
             placeholder="Icon"
-            @click="showPicker = true"
             class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4"
           >
-          <picker
+          <emoji-picker
             v-show="showPicker"
-            title="Pick your stack icon..."
-            :style="{ position: 'absolute', bottom: '20px', right: '20px' }"
-            @select="selectEmoji"
-            native
-          />
+            class="absolute"
+            @emoji="selectEmoji"
+          ></emoji-picker>
         </div>
 
         <div>
@@ -97,10 +95,10 @@
 </template>
 
 <script>
+import EmojiPicker from './EmojiPicker/EmojiPicker.vue'
 import { mapGetters } from 'vuex'
-import { Picker } from 'emoji-mart-vue'
-import Loader from '../components/Loader.vue'
-import ButtonClose from '../components/ButtonClose.vue'
+import Loader from './Loader.vue'
+import ButtonClose from './ButtonClose.vue'
 export default {
   name: 'CreateView',
   data () {
@@ -109,6 +107,7 @@ export default {
       fullName: '',
       shortHand: '',
       showPicker: false,
+      search: '',
       isLoading: false
     }
   },
@@ -117,12 +116,10 @@ export default {
   },
   methods: {
     goBack () {
-      window.history.length > 1
-        ? this.$router.go(-1)
-        : this.$router.push('/space')
+      this.$router.push('/space')
     },
     selectEmoji (e) {
-      this.icon = e.native
+      this.icon = e
       this.showPicker = false
     },
     checkForm () {
@@ -144,7 +141,7 @@ export default {
   components: {
     Loader,
     ButtonClose,
-    Picker
+    EmojiPicker
   }
 }
 </script>

@@ -39,21 +39,9 @@ import TheSideBar from '../components/TheSideBar.vue'
 export default {
   name: 'MainLayout',
   data () {
-    return {
-      window: {
-        width: 0
-      }
-    }
+    return {}
   },
   methods: {
-    getWindowWidth (e) {
-      this.window.width = window.innerWidth
-      if (this.window.width < 768) {
-        // Eventually Toggle Sidebar
-      } else {
-        // Eventually Toggle Sidebar
-      }
-    },
     ...mapActions(['toggleSidebar'])
   },
   computed: {
@@ -65,12 +53,6 @@ export default {
     ...mapGetters('data', ['allStacks', 'loadingStacks']),
     ...mapGetters(['showSidebar'])
   },
-  created () {
-    this.$nextTick(function () {
-      window.addEventListener('resize', this.getWindowWidth)
-      this.getWindowWidth()
-    })
-  },
   watch: {
     /**
      * @method user
@@ -80,9 +62,6 @@ export default {
       if (!auth) this.$router.push('/auth')
       if (auth) this.$store.dispatch('data/getAllStacks')
     }
-  },
-  destroyed () {
-    window.removeEventListener('resize', this.getWindowWidth)
   },
   components: {
     TopNavbar,

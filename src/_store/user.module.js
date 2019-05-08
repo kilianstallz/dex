@@ -1,7 +1,8 @@
 import { auth, usersCollection, timestamp, googleAuthProvider } from '../firebaseConfig'
 
 const state = {
-  user: null
+  user: null,
+  navbarTitle: 'My Stack'
 }
 const getters = {
   user: state => state.user
@@ -15,7 +16,6 @@ const mutations = {
   'UPDATE_USER' (state, payload) {
     const { user } = payload
     state.user = user
-    console.log('User updated')
   }
 }
 const actions = {
@@ -37,15 +37,13 @@ const actions = {
    * @param {Object} firebaseUser - Firebase User document
    */
 
-  updateUser ({ commit }, firebaseUser) {
-    usersCollection.doc(firebaseUser.uid).get().then(user => {
-      if (user) {
-        commit('UPDATE_USER', { user: { ...firebaseUser, ...user.data() } })
-      }
-    })
-      .catch(e => {
-        console.log(e)
-      })
+  async updateUser ({ commit }, firebaseUser) {
+    try {
+      let user = await usersCollection.doc(firebaseUser.uid).get()
+      if (user.exists) { commit('UPDATE_USER', { user: { ...firebaseUser, ...user.data() } }) }
+    } catch (e) {
+      if (e) console.log('An error occured while fetching the user data')
+    }
   },
 
   signUp ({ commit }, input) {
