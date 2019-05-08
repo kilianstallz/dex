@@ -60,7 +60,11 @@ export default {
      */
     user (auth) {
       if (!auth) this.$router.push('/auth')
-      if (auth) this.$store.dispatch('data/getAllStacks')
+      if (auth) {
+        this.$store.dispatch('data/getAllStacks')
+        // Fetch All Notes
+        // Fetch All Stacks
+      }
     }
   },
   components: {

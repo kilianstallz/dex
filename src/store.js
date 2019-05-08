@@ -22,6 +22,9 @@ export default new Vuex.Store({
   mutations: {
     toggleSidebar (state, bool) {
       state.showSidebar = bool
+    },
+    '_setLoading' (state, bool) {
+      state.isLoading = bool
     }
   },
   actions: {
@@ -32,6 +35,9 @@ export default new Vuex.Store({
      */
     toggleSidebar ({ commit }, bool = false) {
       commit('toggleSidebar', bool)
+    },
+    setLoadingState ({ commit }, isLoading = false) {
+      commit('_setLoading')
     }
   }
 })

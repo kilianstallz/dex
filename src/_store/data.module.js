@@ -5,7 +5,7 @@ import 'firebase/firestore'
 
 const state = {
   stacks: null,
-  _loadingStacks: false
+  _loading: false
 }
 const getters = {
   singleStack: state => {
@@ -25,29 +25,32 @@ const getters = {
     }
     return stacks
   },
-  loadingStacks: state => state._loadingStacks
+  loadingStacks: state => state._loading
 }
 const mutations = {
   updateStacks (state, stacksObj) {
     const { stacks } = stacksObj
     state.stacks = stacks
   },
-  _loadingStacks (state, status = false) {
-    state._loadingStacks = status
+  _loading (state, status = false) {
+    state._loading = status
   }
 }
 const actions = {
+
+  // Stacks
+
   async getAllStacks ({ commit }) {
     let stacks = []
     try {
-      commit('_loadingStacks', true)
+      commit('_loading', true)
       const uid = auth.currentUser.uid
       const stacksRef = await stacksCollection.where('creator', '==', uid).orderBy('created', 'desc').get()
       for (let stack of stacksRef.docs) {
         stacks.push(stack)
       }
       commit('updateStacks', { stacks })
-      commit('_loadingStacks')
+      commit('_loading')
     } catch (e) { console.log(e) }
   },
 
@@ -77,6 +80,22 @@ const actions = {
     } catch (e) {
       console.log('An error occured creating the stack.')
     }
+  },
+
+  // Notes
+
+  async getAllNotes ({ commit }) {
+    let stacks = []
+    try {
+      commit('_loading', true)
+      const uid = auth.currentUser.uid
+      const stacksRef = await stacksCollection.where('creator', '==', uid).orderBy('created', 'desc').get()
+      for (let stack of stacksRef.docs) {
+        stacks.push(stack)
+      }
+      commit('updateStacks', { stacks })
+      commit('_loading')
+    } catch (e) { console.log(e) }
   }
 }
 
