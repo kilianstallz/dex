@@ -18,26 +18,26 @@
         @submit.prevent="handleSubmit"
         class="form-inner flex flex-col flex-auto"
       >
-        <h1 class="text-3xl font-black text-gray-800 tracking-tight mb-6">Create a new stack</h1>
+        <h1 class="text-3xl font-black text-gray-800 tracking-tight mb-6">Create a new note</h1>
 
         <div class="flex flex-col w-full mb-6">
           <label
             class="text-gray-600 tracking-tight mb-2"
             style="font-size: 0.875rem; font-weight: 700;"
           >
-            NAME YOUR STACK
+            TITLE
           </label>
           <input
-            v-model="fullName"
+            v-model="title"
             type="text"
-            placeholder="Like 'Applied Electronics'"
+            placeholder="Note Title"
             class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4"
           >
           <p
-            v-if="fullName.length > 24"
+            v-if="title.length > 10"
             style="font-size: 0.825rem;"
             class="lead-none text-red-500"
-          >max. 24 letters</p>
+          >max. 10 letters</p>
         </div>
 
         <div class="flex flex-col w-full mb-6">
@@ -45,40 +45,48 @@
             class="text-gray-600 tracking-tight mb-2"
             style="font-size: 0.875rem; font-weight: 700;"
           >
-            CHOOSE A SHORTHAND
+            DETAILS
           </label>
-          <input
-            v-model="shortHand"
+          <textarea
+            v-model="details"
             type="text"
-            placeholder="Like 'AE'"
+            placeholder="Your note goes here..."
             class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4"
-          >
+          ></textarea>
           <p
-            v-if="shortHand.length > 8"
+            v-if="details.length > 60"
             style="font-size: 0.825rem;"
             class="lead-none text-red-500"
-          >max. 8 letters</p>
+          >max. 60 letters</p>
         </div>
 
-        <div class="mb-6 relative">
+        <div class="mb-6">
           <label
             class="text-gray-600 tracking-tight mb-2"
             style="font-size: 0.875rem; font-weight: 700;"
           >
-            SELECT AN ICON
+            DATE (OPTIONAL)
           </label>
           <input
-            v-model="icon"
-            @focus="showPicker = true"
+            v-model="date"
             type="text"
-            placeholder="Icon"
+            placeholder="Date"
             class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4"
           >
-          <emoji-picker
-            v-show="showPicker"
-            class="absolute"
-            @emoji="selectEmoji"
-          ></emoji-picker>
+        </div>
+        <div class="mb-6">
+          <label
+            class="text-gray-600 tracking-tight mb-2"
+            style="font-size: 0.875rem; font-weight: 700;"
+          >
+            TIME (OPTIONAL)
+          </label>
+          <input
+            v-model="time"
+            type="text"
+            placeholder="Time"
+            class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4"
+          >
         </div>
 
         <div>
@@ -86,7 +94,7 @@
             :disabled="isLoading"
             type="submit"
             class="rounded-lg text-white bg-blue-400 shadow-sm py-2 px-4 hover:shadow-lg"
-          >CREATE STACK</button>
+          >ADD NOTE</button>
         </div>
       </form>
     </div>
@@ -95,54 +103,50 @@
 </template>
 
 <script>
-import EmojiPicker from './EmojiPicker/EmojiPicker.vue'
 import { mapGetters } from 'vuex'
 import Loader from './Loader.vue'
 import ButtonClose from './ButtonClose.vue'
 export default {
-  name: 'CreateView',
+  name: 'CreateNote',
   data () {
     return {
-      icon: '',
-      fullName: '',
-      shortHand: '',
-      showPicker: false,
-      search: '',
+      time: '',
+      date: '',
+      title: '',
+      details: '',
       isLoading: false
     }
   },
   computed: {
-    ...mapGetters('user', ['user'])
+    ...mapGetters('user', ['user']),
+    lastRoute () {
+      return this.$route.query.lastRoute || '/space'
+    },
+    createForStack () {
+      // returns stack id if note is created on a stack or null if note is stack-less (global)
+      return this.$route.query.stack || null
+    }
   },
   methods: {
     goBack () {
-      this.$router.push('/space')
-    },
-    selectEmoji (e) {
-      this.icon = e
-      this.showPicker = false
+      // GO back to last route
+      this.$router.push(this.lastRoute)
     },
     checkForm () {
-      if (this.icon && this.fullName && this.shortHand && this.icon) return true
+      if (this.title && this.details) return true
       else return false
     },
     async handleSubmit () {
       this.isLoading = true
       if (this.checkForm()) {
-        console.log('submit')
-        // Handle Submit in store
-        const stack = { icon: this.icon, shortName: this.shortHand, fullName: this.fullName }
-        await this.$store.dispatch('data/createStack', { stack: stack })
-        await this.$store.dispatch('data/getAllStacks')
-        await console.log('stack created')
+        // Create Note Action
       }
       this.isLoading = false
     }
   },
   components: {
     Loader,
-    ButtonClose,
-    EmojiPicker
+    ButtonClose
   }
 }
 </script>
@@ -175,7 +179,8 @@ export default {
     padding: 32px 32px 80px;
   }
 
-  input {
+  input,
+  textarea {
     border: none;
     background: transparent;
   }

@@ -36,13 +36,17 @@ const router = new Router({
       ]
     },
     {
-      path: '/create/',
+      path: '/create',
       redirect: '/create/stack',
       component: Create,
       children: [
         {
           path: 'stack',
           component: () => import('./components/_CreateStackPage.vue')
+        },
+        {
+          path: 'note',
+          component: () => import('./components/_CreateNotePage.vue')
         }
       ]
     },

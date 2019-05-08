@@ -27,16 +27,18 @@
       <div
         style="height: 40px; width: 160px"
         class="bg-gray-900 text-white mx-auto py-2 px-4 my-6 text-center rounded-lg"
-        @click="goToRoute('stack')"
+        @click="goToRoute('/create/stack')"
       >CREATE STACK</div>
       <!-- <div
         style="height: 40px; width: 160px"
         class="bg-blue-400 text-white mx-auto py-2 px-4 my-6 text-center rounded"
-      >CREATE DECK</div>
+      >CREATE DECK</div> -->
       <div
+        v-if="displayNoteButton"
+        @click="goToRoute(noteRoute)"
         style="height: 40px; width: 160px"
         class="bg-red-500 text-white mx-auto py-2 px-4 my-6 text-center rounded"
-      >CREATE TODO</div> -->
+      >CREATE NOTE</div>
     </div>
   </div>
 </template>
@@ -49,12 +51,30 @@ export default {
       showCreate: false
     }
   },
+  computed: {
+    noteRoute () {
+      if (this.$route.path.startsWith('/stack')) {
+        return {
+          path: '/create/note',
+          query: { stack: this.$route.params.id, lastRoute: this.$route.fullPath }
+        }
+      } else {
+        return { path: '/create/note' }
+      }
+    },
+    displayNoteButton () {
+      const path = this.$route.path
+      if (path.startsWith('/space') || path.startsWith('/stack')) return true
+      else return false
+    }
+  },
   methods: {
     toggleCreate () {
       this.showCreate = !this.showCreate
     },
-    goToRoute (path = 'stack') {
-      this.$router.push(`/create/${path}`)
+    goToRoute (path = '/space') {
+      console.log(path)
+      this.$router.push(path)
     }
   }
 }

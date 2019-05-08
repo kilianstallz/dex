@@ -22,7 +22,7 @@ export default {
     card () {
       if (this.data) {
         let inner = { ...this.data }
-        return inner[0]
+        return inner
       } else return null
     }
   },

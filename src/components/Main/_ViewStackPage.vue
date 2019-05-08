@@ -1,27 +1,56 @@
 <template>
-  <div>
-    <label-list>Notes</label-list>
+  <div v-if="stack">
+
+    <!-- Notes -->
     <div
-      v-if="stack"
-      class="note__grid"
+      class="wrapper__notes"
+      v-if="notes"
     >
-      <note
-        :data="decks"
-        v-for="deck in decks"
-        :key="deck.id"
-      />
+      <label-list>Notes</label-list>
+      <div
+        v-if="stack"
+        class="note__grid"
+      >
+        <note
+          v-for="note in decks"
+          :data="note"
+          :key="note.id"
+        />
+      </div>
     </div>
-    <label-list>Your Decks</label-list>
+    <!-- Notes Loading Spinner -->
     <div
-      v-if="stack"
-      class="deck__grid"
+      v-else
+      class="flex w-full"
     >
-      <deck
-        :data="decks"
-        v-for="deck in decks"
-        :key="deck.id"
-      />
+      <loader class="mx-auto my-6" />
     </div>
+
+    <!-- Decks -->
+    <div
+      class="wrapper__decks"
+      v-if="decks"
+    >
+      <label-list>Your Decks</label-list>
+      <div class="deck__grid">
+        <deck
+          v-for="deck in decks"
+          :data="deck"
+          :key="deck.id"
+        />
+      </div>
+    </div>
+    <div
+      class="flex w-full"
+      v-else
+    >
+      <loader class="mx-auto my-6" />
+    </div>
+  </div>
+
+  <!-- Empty state -->
+  <div v-else>
+    EMPTY STATE
   </div>
 </template>
 
@@ -44,6 +73,7 @@
 import labelList from '../labelList.vue'
 import CardDeck from '../CardDeck.vue'
 import CardNotes from '../CardNotes.vue'
+import Loader from '../Loader.vue'
 import { decksCollection } from '../../firebaseConfig'
 import { mapGetters } from 'vuex'
 export default {
@@ -51,7 +81,8 @@ export default {
   data () {
     return {
       stack: null,
-      decks: null
+      decks: null,
+      notes: null
     }
   },
   computed: {
@@ -85,7 +116,8 @@ export default {
   components: {
     Deck: CardDeck,
     Note: CardNotes,
-    labelList
+    labelList,
+    Loader
   }
 }
 </script>
