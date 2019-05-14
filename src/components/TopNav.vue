@@ -5,7 +5,11 @@
         @click="toggleSidebar"
         class="ml-7 my-auto hover:text-gray-700"
       >|||</span>
-      <span class="ml-7 my-auto">{{pageTitle}}</span>
+      <span class="ml-7 my-auto text-lg">{{pageTitle}}</span>
+      <span
+        v-if="isOffline"
+        class="ml-2 my-auto text-sm uppercase bg-gray-800 text-white px-2 rounded-full"
+      >OFFLINE</span>
     </div>
   </div>
 </template>
@@ -13,17 +17,18 @@
 <script>
 export default {
   name: 'TopNavbar',
-  computed: {
-    pageTitle () {
-      if (this.$route.path.startsWith('/stack')) {
-        return 'My Stack'
-      } else return 'My Space'
-    }
-  },
   methods: {
     toggleSidebar () {
       // TASK: Sidebar Store
       this.$store.dispatch('toggleSidebar', true)
+    }
+  },
+  computed: {
+    pageTitle () {
+      return this.$store.getters.title
+    },
+    isOffline () {
+      return this.$store.getters.isOffline
     }
   }
 }

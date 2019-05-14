@@ -13,11 +13,16 @@ export default new Vuex.Store({
   state: {
     isLoading: false,
     showSidebar: false,
-    navbarTitle: ''
+    navbarTitle: 'My Space',
+    isOffline: false,
+    isArchived: false
   },
   getters: {
     isLoading: state => state.isLoading,
-    showSidebar: state => state.showSidebar
+    showSidebar: state => state.showSidebar,
+    title: state => state.navbarTitle,
+    isOffline: state => state.isOffline,
+    isArchived: state => state.isArchived
   },
   mutations: {
     toggleSidebar (state, bool) {

@@ -34,6 +34,7 @@ const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 const usersCollection = db.collection('users')
 const stacksCollection = db.collection('stacks')
 const decksCollection = db.collection('decks')
+const notesCollection = db.collection('notes')
 
 export {
   db,
@@ -43,5 +44,6 @@ export {
   currentUser,
   usersCollection,
   stacksCollection,
-  decksCollection
+  decksCollection,
+  notesCollection
 }

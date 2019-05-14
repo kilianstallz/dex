@@ -22,6 +22,14 @@ const router = new Router({
         {
           path: '/space',
           component: Home
+        },
+        {
+          path: '/notes',
+          component: () => import('./components/Main/Notes.vue')
+        },
+        {
+          path: '/note/:noteId',
+          component: () => import('./components/Main/NoteView.vue')
         }
       ]
     },

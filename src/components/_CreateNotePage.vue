@@ -104,14 +104,15 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { notesCollection } from '../firebaseConfig'
 import Loader from './Loader.vue'
 import ButtonClose from './ButtonClose.vue'
 export default {
   name: 'CreateNote',
   data () {
     return {
-      time: '',
-      date: '',
+      time: null,
+      date: null,
       title: '',
       details: '',
       isLoading: false
@@ -140,6 +141,19 @@ export default {
       this.isLoading = true
       if (this.checkForm()) {
         // Create Note Action
+        await notesCollection.add({
+          creator: this.user.uid,
+          time: this.time,
+          date: new Date(this.date),
+          title: this.title,
+          details: this.details,
+          created: new Date.Now()
+        })
+          .then(() => {
+            this.$router.push(this.lastRoute)
+            this.$store.dispatch('data/getAllStacks')
+          })
+          .catch(err => console.error(err))
       }
       this.isLoading = false
     }

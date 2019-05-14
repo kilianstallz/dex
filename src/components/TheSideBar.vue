@@ -18,6 +18,16 @@
           <p class="flex-grow m-0 whitespace-no-wrap text-gray-700">Home</p>
         </router-link>
       </div>
+      <div class="m-0 p-0">
+        <router-link
+          to="/notes"
+          class="item flex flex-row align-middle flex-grow my-1 mx-3 px-4 py-3"
+          @click.native="toggleSidebar"
+        >
+          <span class="">🗒</span>
+          <p class="flex-grow m-0 whitespace-no-wrap text-gray-700">Notes</p>
+        </router-link>
+      </div>
 
       <div class="flex flex-grow"></div>
 
