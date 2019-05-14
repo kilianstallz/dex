@@ -23,7 +23,7 @@
       />
     </div>
     <div
-      v-if="allStacks.length === 0"
+      v-if="docs && docs.length === 0"
       class="text-center"
     >
       <!-- TODO: EMPTY STATE -->
@@ -38,24 +38,42 @@
 </template>
 
 <script>
+import { stacksCollection } from '../../firebaseConfig'
 import { mapGetters } from 'vuex'
 import labelList from '../labelList.vue'
 import card from '../card.vue'
 export default {
   name: 'MySpace',
   data () {
-    return {}
+    return {
+      docs: null
+    }
   },
   computed: {
-    ...mapGetters('data', ['allStacks']),
+    ...mapGetters('user', ['user']),
     favs () {
-      let favs = this.allStacks.filter(el => el.isFavourite === true)
+      if (!this.docs) return []
+      let favs = this.docs.filter(el => el.isFavourite === true)
       return favs
     },
     stacks () {
-      let stacks = this.allStacks.filter(el => !el.isFavourite)
+      if (!this.docs) return []
+      let stacks = this.docs.filter(el => !el.isFavourite)
       return stacks
     }
+  },
+  methods: {
+    async fetchStacks () {
+      await stacksCollection
+        .where('creator', '==', this.user.uid)
+        .orderBy('created', 'desc')
+        .onSnapshot(querySnap => {
+          this.docs = querySnap.docs.map(doc => { return { ...doc.data(), id: doc.id } })
+        })
+    }
+  },
+  mounted () {
+    this.fetchStacks()
   },
   components: {
     card,

@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     isLoading () {
-      if (this.user && !this.loadingStacks) return false
+      if (this.user) return false
       else return true
     },
     ...mapGetters('user', ['user']),
