@@ -7,6 +7,25 @@
   </div>
 </template>
 
+<script>
+export default {
+  methods: {
+    checkStatus () {
+      // console.log(navigator.onLine ? 'Online' : 'Offline')
+      this.$store.state.isOffline = !navigator.onLine
+    }
+  },
+  created () {
+    window.addEventListener('online', this.checkStatus)
+    window.addEventListener('offline', this.checkStatus)
+  },
+  destroyed () {
+    window.removeEventListener('online', this.checkStatus)
+    window.removeEventListener('offline', this.checkStatus)
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   font-family: "Roboto", "Ubuntu", Helvetica, Arial, sans-serif;
