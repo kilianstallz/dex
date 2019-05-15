@@ -64,7 +64,7 @@ export default {
     },
     displayNoteButton () {
       const path = this.$route.path
-      if (path.startsWith('/space') || path.startsWith('/stack')) return true
+      if (path.startsWith('/space') || path.startsWith('/stack') || path.startsWith('/note') || path.startsWith('/notes')) return true
       else return false
     }
   },

@@ -30,16 +30,10 @@ const router = new Router({
         {
           path: '/note/:noteId',
           component: () => import('./components/Main/NoteView.vue')
-        }
-      ]
-    },
-    {
-      path: '/stack',
-      component: Main,
-      children: [
+        },
         {
-          path: ':id',
-          component: () => import('./components/Main/_ViewStackPage.vue')
+          path: '/stack/:id',
+          component: () => import('./components/Main/StackView.vue')
         }
       ]
     },
