@@ -1,27 +1,39 @@
 <template>
   <div>
-    <div
-      class="favs"
-      v-if="favs.length !== 0"
-    >
-      <dLabel>FAVOURITES</dLabel>
-      <card
-        v-for="(fav, i) in favs"
-        :key="i"
-        :data="fav"
-      />
+
+    <!-- Non Empty -->
+
+    <div class="grid">
+      <div
+        class="favs grid__outer"
+        v-if="favs.length !== 0"
+      >
+        <dLabel class="grid__label">FAVOURITES</dLabel>
+        <div class="grid__container">
+          <card
+            v-for="(fav, i) in favs"
+            :key="i"
+            :data="fav"
+          />
+        </div>
+      </div>
+      <div
+        class="stacks grid__outer"
+        v-if="stacks.length !== 0"
+      >
+        <dLabel class="grid__label">MY STACKS</dLabel>
+        <div class="grid__container">
+          <card
+            v-for="(stack, i) in stacks"
+            :key="i"
+            :data="stack"
+          />
+        </div>
+      </div>
     </div>
-    <div
-      class="stacks"
-      v-if="stacks.length !== 0"
-    >
-      <dLabel>MY STACKS</dLabel>
-      <card
-        v-for="(stack, i) in stacks"
-        :key="i"
-        :data="stack"
-      />
-    </div>
+
+    <!-- Empty State -->
+
     <div
       v-if="docs && docs.length === 0"
       class="text-center"
@@ -73,6 +85,9 @@ export default {
     }
   },
   mounted () {
+    // Set Navbar title
+    this.$store.state.navbarTitle = 'My Space'
+
     this.fetchStacks()
   },
   components: {
@@ -83,4 +98,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.grid {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 12px;
+  }
+}
+
+@media (min-width: 767px) {
+  .grid {
+    &__container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    &__container {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+@media (min-width: 1440px) {
+  .grid {
+    &__container {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+}
 </style>

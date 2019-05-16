@@ -96,4 +96,12 @@ nav {
     margin: 0 auto;
   }
 }
+
+@media (min-width: 425px) {
+  nav {
+    max-width: 425px;
+    margin: 0 auto;
+    box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+  }
+}
 </style>

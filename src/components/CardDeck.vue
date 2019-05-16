@@ -2,7 +2,7 @@
   <article
     @click="gotoCard"
     v-if="data"
-    class="bg-gray-100 w-full shadow-sm rounded flex flex-row"
+    class="bg-gray-100 w-full shadow-sm rounded flex flex-row my-0"
   >
     <div class="flex flex-col flex-wrap flex-1">
       <h3 class="mx-auto my-auto break-words text-gray-900 leading-none font-bold text-xl">{{card.name}}</h3>
@@ -37,6 +37,7 @@ export default {
 <style lang="scss" scoped>
 article {
   height: 128px;
+  margin: 0;
 
   &:hover,
   &:focus {

@@ -38,8 +38,6 @@ export default {
 <style lang="scss" scoped>
 article {
   height: 84px;
-  margin-top: 12px;
-  margin-bottom: 12px;
 
   &:hover,
   &:focus {

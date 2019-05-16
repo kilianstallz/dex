@@ -31,7 +31,7 @@
       class="wrapper__decks"
       v-if="decks"
     >
-      <label-list>Your Decks</label-list>
+      <label-list v-if="decks.length !== 0">Your Decks</label-list>
       <div class="deck__grid">
         <deck
           v-for="deck in decks"
@@ -74,7 +74,7 @@ import labelList from '../labelList.vue'
 import CardDeck from '../CardDeck.vue'
 import CardNotes from '../CardNotes.vue'
 import Loader from '../Loader.vue'
-import { decksCollection } from '../../firebaseConfig'
+import { decksCollection, notesCollection, stacksCollection } from '../../firebaseConfig'
 import { mapGetters } from 'vuex'
 export default {
   name: 'ViewStack',
@@ -89,29 +89,56 @@ export default {
     id () {
       return this.$route.params.id
     },
-    ...mapGetters('data', ['allStacks']),
     ...mapGetters('user', ['user'])
   },
   methods: {
-    setStack () {
-      this.stack = { ...this.allStacks.filter(stack => stack.id === this.$route.params.id) }
+    async fetchStack () {
+      try {
+        await stacksCollection
+          .doc(this.$route.params.id)
+          .onSnapshot(docSnapshot => {
+            if (docSnapshot.exists === false) {
+              throw new Error('Document does not exist!')
+            }
+            this.stack = docSnapshot.data()
+            this.$store.state.navbarTitle = this.stack.shortName
+          })
+      } catch (err) {
+        console.error(err)
+        this.$router.push('/space')
+      }
     },
     async fetchDecks () {
       try {
-        const decksSnapshot = await decksCollection.where('stack', '==', this.$route.params.id).get()
-        let decks = []
-        for (let deck of decksSnapshot.docs) {
-          decks.push(deck.data())
-        }
-        this.decks = decks
+        await decksCollection
+          .where('stack', '==', this.$route.params.id)
+          .onSnapshot(querySnapshot => {
+            this.decks = querySnapshot.docs.map(doc => doc.data())
+          })
       } catch (e) {
-        console.error('There was a problem fetching the stack data.')
+        this.decks = []
+        console.error('There was a problem fetching the decks.')
+      }
+    },
+    async fetchNotes () {
+      try {
+        await notesCollection
+          .where('creator', '==', this.user.uid)
+          .where('stack', '==', this.$route.params.id)
+          .orderBy('created', 'desc')
+          .onSnapshot(querySnapshot => {
+            this.notes = querySnapshot.docs.map(doc => doc.data())
+          })
+      } catch (err) {
+        this.notes = []
+        console.error('There was a problem fetching your notes!')
       }
     }
   },
   mounted () {
-    this.setStack()
+    this.fetchStack()
     this.fetchDecks()
+    this.fetchNotes()
   },
   components: {
     Deck: CardDeck,
