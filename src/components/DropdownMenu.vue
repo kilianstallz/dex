@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <span
+    <div
       @click="menu = !menu"
       class="leading-snug tracking-tighter mr-4"
     >
@@ -12,7 +12,7 @@
         v-if="menu"
         name="close"
       />
-    </span>
+    </div>
     <div
       v-if="menu"
       class="absolute right-0 bg-white py-2 px-2 w-48 rounded-sm shadow"

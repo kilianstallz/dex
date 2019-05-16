@@ -3,10 +3,15 @@
     <div
       id="left"
       class="column flex flex-col pt-4 pb-5"
-      v-show="true"
     >
-      <div class="ml-auto mr-6 p-0 text-gray-800 text-xl">
-        <close-button @click.native="toggleSidebar" />
+      <div
+        class="ml-auto mr-6 p-0 text-gray-800 text-xl opacity-75"
+        @click="toggleSidebar"
+      >
+        <img
+          src="../assets/icons/x.svg"
+          alt="Close"
+        >
       </div>
       <div class="m-0 p-0">
         <router-link

@@ -1,10 +1,13 @@
 <template>
   <div class="navbar bg-gray-200 font-bold text-gray-900">
     <div class="inner h-full flex flex-row">
-      <span
+      <div
         @click="toggleSidebar"
-        class="ml-7 my-auto hover:text-gray-700"
-      >|||</span>
+        class="ml-7 my-auto hover:text-gray-700 opacity-75"
+      ><img
+          src="@/assets/icons/menu.svg"
+          alt="Menu"
+        ></div>
       <span class="ml-7 my-auto text-lg">{{pageTitle}}</span>
       <span
         v-if="isOffline"

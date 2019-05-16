@@ -1,8 +1,18 @@
 <template>
   <div class="fixed flex flex-col bottom-0 left-0 right-0 w-screen text-gray-900 z-40">
     <nav class="w-full bg-white">
-      <div>S</div>
-      <div>Se</div>
+      <div>
+        <img
+          src="../../assets/icons/archive.svg"
+          alt=""
+        >
+      </div>
+      <div>
+        <img
+          src="../../assets/icons/search.svg"
+          alt=""
+        >
+      </div>
       <div
         class="bg-blue-400 rounded my-4"
         style="width: 45px; height: 30px;"
@@ -17,8 +27,18 @@
           class="plus mx-auto leading-tight z-50 text-2xl text-white"
         >-</div>
       </div>
-      <div>N</div>
-      <div>P</div>
+      <div>
+        <img
+          src="../../assets/icons/bell.svg"
+          alt="Notification"
+        >
+      </div>
+      <div>
+        <img
+          src="../../assets/icons/grid.svg"
+          alt=""
+        >
+      </div>
     </nav>
     <div
       v-show="showCreate"
