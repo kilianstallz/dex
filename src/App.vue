@@ -16,11 +16,12 @@ export default {
     }
   },
   created () {
+    window.addEventListener('load', this.checkStatus)
     window.addEventListener('online', this.checkStatus)
     window.addEventListener('offline', this.checkStatus)
   },
   destroyed () {
-    window.removeEventListener('online', this.checkStatus)
+    window.removeEventListener('load', this.checkStatus)
     window.removeEventListener('offline', this.checkStatus)
   }
 }

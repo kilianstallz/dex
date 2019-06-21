@@ -9,27 +9,27 @@
   },
   "dependencies": {
     "alertify.js": "^1.0.12",
-    "core-js": "^2.6.5",
+    "core-js": "^2.6.9",
     "emoji-mart-vue": "^2.6.6",
-    "firebase": "^5.11.0",
+    "firebase": "^5.11.1",
     "register-service-worker": "^1.6.2",
-    "tailwindcss": "^1.0.0-beta.8",
+    "tailwindcss": "^1.0.4",
     "vue": "^2.6.10",
     "vue-emoji-picker": "^1.0.1",
     "vue-router": "^3.0.3",
     "vue2-transitions": "^0.3.0",
-    "vuex": "^3.0.1"
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-plugin-eslint": "^3.7.0",
-    "@vue/cli-plugin-pwa": "^3.7.0",
-    "@vue/cli-service": "^3.7.0",
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-eslint": "^3.8.0",
+    "@vue/cli-plugin-pwa": "^3.8.0",
+    "@vue/cli-service": "^3.8.4",
     "@vue/eslint-config-standard": "^4.0.0",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
   }
