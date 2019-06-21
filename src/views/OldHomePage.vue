@@ -50,10 +50,10 @@
 </template>
 
 <script>
-import { stacksCollection } from '../../firebaseConfig'
+import { stacksCollection } from '../firebaseConfig'
 import { mapGetters } from 'vuex'
-import labelList from '../labelList.vue'
-import card from '../card.vue'
+import labelList from '../components/labelList.vue'
+import card from '../components/card.vue'
 export default {
   name: 'MySpace',
   data () {
@@ -77,6 +77,14 @@ export default {
   methods: {
     async fetchStacks () {
       await stacksCollection
+        .where('creator', '==', this.user.uid)
+        .orderBy('created', 'desc')
+        .onSnapshot(querySnap => {
+          this.docs = querySnap.docs.map(doc => { return { ...doc.data(), id: doc.id } })
+        })
+    },
+    async fetchNotes () {
+      await notesCollection
         .where('creator', '==', this.user.uid)
         .orderBy('created', 'desc')
         .onSnapshot(querySnap => {

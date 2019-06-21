@@ -41,7 +41,6 @@ export default {
         notes.push(doc)
       })
       this.data = notes
-      console.log(notes)
     })
   }
 }

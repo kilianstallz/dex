@@ -30,6 +30,9 @@ export default new Vuex.Store({
     },
     '_setLoading' (state, bool) {
       state.isLoading = bool
+    },
+    SET_TITLE (state, title) {
+      state.navbarTitle = title
     }
   },
   actions: {
@@ -43,6 +46,9 @@ export default new Vuex.Store({
     },
     setLoadingState ({ commit }, isLoading = false) {
       commit('_setLoading')
+    },
+    updateTitle ({ commit }, title) {
+      commit('SET_TITLE', title)
     }
   }
 })

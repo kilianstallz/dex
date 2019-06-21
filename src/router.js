@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Main from './views/Main.vue'
-import Home from './components/Main/_Home.vue'
+import Main from './views/MainLayout.vue'
+import Home from './views/HomePage.vue'
 import Create from './views/Create.vue'
 
 Vue.use(Router)
