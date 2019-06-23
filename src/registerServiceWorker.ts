@@ -11,8 +11,8 @@ const notifyUserAboutUpdate = (worker: any) => {
     showCancelButton: true,
     confirmButtonText: 'Reload',
     cancelButtonText: 'Later'
-  }).then(conf => {
-    if (conf === 'Reload') {
+  }).then(result => {
+    if (result.value) {
       worker.postMessage({ action: 'skipWaiting' })
     }
   })
