@@ -61,16 +61,12 @@
 </template>
 
 <script>
-import CloseButton from './ButtonClose.vue'
 export default {
   name: 'Sidebar',
   methods: {
     toggleSidebar () {
       this.$store.dispatch('toggleSidebar')
     }
-  },
-  components: {
-    CloseButton
   }
 }
 </script>

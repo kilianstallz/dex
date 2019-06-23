@@ -1,15 +1,16 @@
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker'
-import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 
 const notifyUserAboutUpdate = (worker: any) => {
-  swal({
+  Swal.fire({
     title: 'New version!',
     text: 'Reload to get the latest version!',
-    icon: 'info',
-    buttons: ['Later', 'Reload'],
-    dangerMode: true
+    type: 'info',
+    showCancelButton: true,
+    confirmButtonText: 'Reload',
+    cancelButtonText: 'Later'
   }).then(conf => {
     if (conf === 'Reload') {
       worker.postMessage({ action: 'skipWaiting' })
