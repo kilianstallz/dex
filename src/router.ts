@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Main from './views/MainLayout.vue'
-import Home from './views/HomePage.vue'
-import Create from './views/Create.vue'
+import Main from './layouts/MainLayout.vue'
+import ListsPage from './views/ListsPage.vue'
+import Create from './layouts/Create.vue'
 
 Vue.use(Router)
 
@@ -21,7 +21,15 @@ const router = new Router({
       children: [
         {
           path: '/space',
-          component: Home
+          component: () => import('./views/SpacePage.vue')
+        },
+        {
+          path: '/lists',
+          component: ListsPage
+        },
+        {
+          path: '/list/:id',
+          component: () => import('./views/ListViewPage.vue')
         },
         {
           path: '/notes',
@@ -30,6 +38,10 @@ const router = new Router({
         {
           path: '/note/:noteId',
           component: () => import('./components/Main/NoteView.vue')
+        },
+        {
+          path: '/stacks',
+          component: () => import('./views/StacksPage.vue')
         },
         {
           path: '/stack/:id',
@@ -44,11 +56,19 @@ const router = new Router({
       children: [
         {
           path: 'stack',
-          component: () => import('./components/_CreateStackPage.vue')
+          component: () => import('./views/CreateStackPage.vue')
         },
         {
           path: 'note',
-          component: () => import('./components/_CreateNotePage.vue')
+          component: () => import('./views/CreateNotePage.vue')
+        },
+        {
+          path: 'list',
+          component: () => import('./views/CreateListPage.vue')
+        },
+        {
+          path: '/list/:id/add',
+          component: () => import('./views/ListEntryForm.vue')
         }
       ]
     },

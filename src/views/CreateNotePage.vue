@@ -105,8 +105,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { notesCollection } from '../firebaseConfig'
-import Loader from './Loader.vue'
-import ButtonClose from './ButtonClose.vue'
+import Loader from '../components/Loader.vue'
+import ButtonClose from '../components/ButtonClose.vue'
 export default {
   name: 'CreateNote',
   data () {

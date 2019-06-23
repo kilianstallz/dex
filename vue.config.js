@@ -1,3 +1,4 @@
+const WorkboxPlugin = require('workbox-webpack-plugin')
 module.exports = {
   pwa: {
     workboxPluginMode: 'InjectManifest',
@@ -11,5 +12,6 @@ module.exports = {
         chunks: 'all'
       }
     }
-  }
+  },
+  transpileDependencies: ['vuex-module-decorators']
 }

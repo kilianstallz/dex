@@ -40,10 +40,10 @@ export default {
     },
     ...mapGetters(['isLoading']),
     ...mapGetters('user', ['user'])
+
   },
   watch: {
     user (auth) {
-      console.log('authpagewatcher', auth)
       if (auth) this.$router.push('/')
     }
   },

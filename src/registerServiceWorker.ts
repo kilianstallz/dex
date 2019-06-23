@@ -1,11 +1,19 @@
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker'
-import alertify from 'alertify.js'
+import swal from 'sweetalert'
 
-const notifyUserAboutUpdate = worker => {
-  alertify.confirm('New version available, reload now?', () => {
-    worker.postMessage({ action: 'skipWaiting' })
+const notifyUserAboutUpdate = (worker: any) => {
+  swal({
+    title: 'New version!',
+    text: 'Reload to get the latest version!',
+    icon: 'info',
+    buttons: ['Later', 'Reload'],
+    dangerMode: true
+  }).then(conf => {
+    if (conf === 'Reload') {
+      worker.postMessage({ action: 'skipWaiting' })
+    }
   })
 }
 

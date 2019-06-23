@@ -19,7 +19,13 @@ export default {
   font-size: 14px;
   line-height: 16px;
   color: #718096;
-  text-transform: uppercase;
   font-weight: bold;
+}
+@media (max-width: 475px) {
+  .label {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1.2px;
+  }
 }
 </style>

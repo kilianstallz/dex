@@ -9,7 +9,7 @@
           <img src="../../assets/icons/search.svg" alt>
         </div>
         <div
-          class="bg-blue-400 rounded my-4"
+          class="bg-primary rounded my-4"
           style="width: 45px; height: 30px;"
           @click="toggleCreate"
         >

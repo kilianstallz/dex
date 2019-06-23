@@ -95,10 +95,10 @@
 </template>
 
 <script>
-import EmojiPicker from './EmojiPicker/EmojiPicker.vue'
+import EmojiPicker from '../components/EmojiPicker/EmojiPicker.vue'
 import { mapGetters } from 'vuex'
-import Loader from './Loader.vue'
-import ButtonClose from './ButtonClose.vue'
+import Loader from '../components/Loader.vue'
+import ButtonClose from '../components/ButtonClose.vue'
 export default {
   name: 'CreateView',
   data () {

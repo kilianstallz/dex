@@ -12,9 +12,7 @@
       class="bg-gray-200"
       style="margin: 0 5px 0 5px;"
     >
-      <slide-down>
         <router-view v-if="!isLoading"></router-view>
-      </slide-down>
       <div
         class="w-full flex flex-row mt-64"
         v-if="isLoading"
@@ -24,7 +22,7 @@
     </div>
     <!-- Bottom Navigation -->
     <slide-down>
-      <bottom-nav v-show="!showSidebar" />
+      <bottom-nav v-show="!showSidebar && showBottomNav" />
     </slide-down>
   </div>
 </template>
@@ -51,7 +49,7 @@ export default {
     },
     ...mapGetters('user', ['user']),
     ...mapGetters('data', ['allStacks', 'loadingStacks']),
-    ...mapGetters(['showSidebar'])
+    ...mapGetters(['showSidebar', 'showBottomNav'])
   },
   watch: {
     /**
@@ -62,8 +60,6 @@ export default {
       if (!auth) this.$router.push('/auth')
       if (auth) {
         this.$store.dispatch('data/getAllStacks')
-        // Fetch All Notes
-        // Fetch All Stacks
       }
     }
   },
